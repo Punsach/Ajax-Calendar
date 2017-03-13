@@ -1,0 +1,31 @@
+
+h1{
+	color: #745518;
+	font-family: Belfast SF, serif;
+	text-align: center;
+}
+div
+    {
+        width: 500px;
+        margin: 0 auto;
+        padding: 25px;
+        background-color: #314471;
+        border: 10px #16274E;
+        border-style: outset;
+    }
+div.box{
+	background-color: #E7C582;
+}
+p{
+	font-family: Grenoble SF, sans-serif;
+	color: #E7C582 ;
+	font-size: 25px;
+	text-align: center;
+	
+}
+form{
+	color: #A8853D;
+	font-family:Chiller, serif;
+	font-size: 50px;
+	text-align: center;
+}
