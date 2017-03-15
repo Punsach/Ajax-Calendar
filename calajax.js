@@ -32,18 +32,32 @@ function registerAjax(event){
 	var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
 	xmlHttp.open("POST", "calnewaccount.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
 	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
-	alert("trying to register");
-
-	xmlHttp.addEventListener("load", function(event){
-		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
-		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
-			alert("You've successfully registered!");
-		}else{
-			alert("Registration failure.  "+jsonData.message);
-		}
-	}, false); // Bind the callback to the load event
 	xmlHttp.send(dataString); // Send the data
+
+	// xmlHttp.addEventListener("load", function(event){
+	// 	var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+	// 	if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+	// 		alert("You've successfully registered!");
+	// 	}else{
+	// 		alert("Registration failure.  "+jsonData.message);
+	// 	}
+	// }, false); // Bind the callback to the load event
+	
 }
- 
-document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click 
-document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
+
+function newEventAjax(event){
+	var date = document.getElementById("date").value;
+	var time = document.getElementById("time").value;
+	var event_title = document.getElementById("event_title").value;
+	var user = 'user1';
+	
+
+	var dataString = "date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time)+ "&event_title=" + encodeURIComponent(event_title)+"&user=" + encodeURIComponent(user);
+	var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+	xmlHttp.open("POST", "calnewevent.php", true); // Starting a POST request 
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+	xmlHttp.send(dataString);
+} 
+document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX calls to button click 
+document.getElementById("login_btn").addEventListener("click", loginAjax, false); 
+document.getElementById("event_btn").addEventListener("click", newEventAjax, false);

@@ -2,6 +2,7 @@
 <?php 
 header("Content-Type: application/json");
 require 'caldatabase.php';
+session_start();
 if(isset($_POST['new_username'])){                        
 	$username = htmlentities($_POST['new_username']);
 	$password = htmlentities($_POST['new_password']);
@@ -14,17 +15,17 @@ if(isset($_POST['new_username'])){
 	}
 	$stmt->execute();	
 	$stmt->close();
-	echo json_encode(array(
-		"success" => true
-		"message" => "Registration successful, log in"
-		));
-	exit;
-}    
-else{
-	echo json_encode(array(
-		"success" => false,
-		"message" => "Can't Register"
-		));
-	exit;
+// 	echo json_encode(array(
+// 		"success" => true
+// 		"message" => "Registration successful, log in"
+// 		));
+// 	exit;
+// }    
+// else{
+// 	echo json_encode(array(
+// 		"success" => false,
+// 		"message" => "Can't Register"
+// 		));
+// 	exit;
 }
 ?>
