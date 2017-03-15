@@ -1,6 +1,6 @@
 <?php
  
-$mysqli = new mysqli('localhost', 'root', 'hi', 'calendar');
+$mysqli = new mysqli('localhost', 'root', 'hi', 'calendardb');
  
 if($mysqli->connect_errno) 
 {

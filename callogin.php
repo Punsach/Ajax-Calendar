@@ -1,86 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
- <meta charset="utf-8"/>
- <title>Calender</title>
-</head>
-<body>
-    
-        <h1>LOGIN</h1>
-        <form method="POST">
-            <p>
-                <label for="user">Enter your username:</label>
-                <input type="text" name="user" id="user" />
-            </p>
-            <p> 
-                <label for="pass">Enter your password:</label>
-                <input type="password" name="pass" id="pass"/>
-            </p>
-            <p>
-                <input type="submit" name ="loginButton" id = "loginButton" value="Login" />
-            </p>
-            <p>
-            <input type="submit" name ="guest" id = "guest" value = "Continue as Guest"/>
-            </p>
-        </form>
 
-        <form method="post" action = "newaccount.php"> 
-        <p>
-            <input type="submit" name ="newacc" id = "newacc" value="Make Account" />
-            </p>
-        </form>
-
-        <?php 
-        header("Content-Type: application/json");
-        require 'caldatabase.php';
-
-        session_start();
-        session_unset();
-       
-        $_SESSION['guest'] = true; 
-        
-        if(isset($_POST['guest']))
-        {
-            $_SESSION['guest'] = true; 
-            header("Location: guest.php");
-        }
-
-
-        if(isset($_POST['loginButton']))
-        {
-
-            $user = "";
+<?php 
+header("Content-Type: application/json");
+require 'caldatabase.php';
+if(isset($_POST['username'])){                        
+    $user = htmlentities($_POST['username']);
+    $pwd_guess = htmlentities($_POST['password']);
 // Use a prepared statement
 
-            $stmt = $mysqli->prepare("SELECT COUNT(*), username, password FROM users WHERE username=?");
+        $stmt = $mysqli->prepare("SELECT COUNT(*), username, password FROM users WHERE username=?");
 
-// Bind the parameter
-            $user = htmlentities($_POST['user']);
-            
-            $stmt->bind_param('s', $user);
-            echo "WE DID SOMETHING";
-            $stmt->execute();
-
+// Bind the parameter      
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
 // Bind the results
-            $stmt->bind_result($cnt, $username, $pwd_hash);
-            $stmt->fetch();
-
-            $pwd_guess = htmlentities($_POST['pass']);
-            //Verify password and set up token
-            if( password_verify($pwd_guess, $pwd_hash))
-            {        
-                $_SESSION['user_id'] = $username;
-                $_SESSION['guest'] = false; 
-                $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32)); 
-                header("Location: guest.php");
-            } 
-            else
-            {   
-                header("Location: login.php");
+        $stmt->bind_result($cnt, $username, $pwd_hash);//if count = 0, user dne
+        $stmt->fetch();
+        
+            
+         //Verify password and set up token
+        if($pwd_guess==$pwd_hash){        
+                session_start();
+                $_SESSION['user_id'] = $user;
+                $_SESSION['token'] = substr(md5(rand()), 0, 10);
                 
-            }
+                echo json_encode(array(
+                    "success" => true
+                ));
+                exit;
+            }else{
+                echo json_encode(array(
+                    "success" => false,
+                    "message" => "Incorrect Username or Password"
+                ));
+                exit;
+            } 
+            
         }
+
         ?>
-    
-</body>
-</html>
