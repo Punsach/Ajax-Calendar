@@ -75,8 +75,36 @@ function getEvents(event){
 	}, false); // Bind the callback to the load event
 	xmlHttp.send(dataString); // Send the data
 }
+function getCount(event){
+
+	var date="2017-01-02";
+
+	var dataString = "date=" + encodeURIComponent(date);
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("POST", "checkeventcount.php", true); 
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); 
+		alert(event.target.responseText);
+	}, false); // Bind the callback to the load event
+	xmlHttp.send(dataString); // Send the data
+
+}
+function deleteEvent(event){
+
+	var id = document.getElementById("id").value;
+
+	var dataString = "id=" + encodeURIComponent(id);
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("POST", "caldeleteevent.php", true); 
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.send(dataString); // Send the data
+
+}
 document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX calls to button click 
 document.getElementById("login_btn").addEventListener("click", loginAjax, false); 
 document.getElementById("event_btn").addEventListener("click", newEventAjax, false);
 document.getElementById("getevents_btn").addEventListener("click", getEvents, false);
+document.getElementById("count_btn").addEventListener("click", getCount, false);
+document.getElementById("delete_btn").addEventListener("click", deleteEvent, false);
 
