@@ -1,13 +1,14 @@
 <?php 
 header("Content-Type: application/json");
 require 'caldatabase.php';
-session_start();
-//$user = $_SESSION('user_id');
+
 if(isset($_POST['event_title'])){                        
 	$title = htmlentities($_POST['event_title']);
 	$date= $_POST['date'];
 	$time = $_POST['time'];
-	$user = $_POST['user'];
+	session_start();
+	$user = $_SESSION['user_id'];
+	//$user = $_POST['user'];
 
 	
 // Use a prepared statement

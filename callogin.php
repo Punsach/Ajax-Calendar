@@ -3,7 +3,7 @@
 header("Content-Type: application/json");
 require 'caldatabase.php';
 
-session_start();
+
 if(isset($_POST['username'])){                        
     $user = htmlentities($_POST['username']);
     $pwd_guess = htmlentities($_POST['password']);
@@ -22,12 +22,14 @@ if(isset($_POST['username'])){
          //Verify password and set up token
         if(password_verify($pwd_guess, $pwd_hash)){ 
             ini_set("session.cookie_httponly", 1);       
-            
+            session_start();
             $_SESSION['user_id'] = $user;
             $_SESSION['token'] = substr(md5(rand()), 0, 10);
-            //echo '<script>var user_id = '.json_encode($user).';</script>';    
+               
+                
                 echo json_encode(array(
-                    "success" => true
+                    "success" => true,
+                    "message" =>"Welcome, $user."
                 ));
                 exit;
             }else{

@@ -21,7 +21,7 @@ if(isset($_POST['id'])){
     // $stmt->close();
 
 
-/////////STILL NEED to define editEvent, get session vars like token working/////////
+/////////STILL NEED to get token working/////////
     
        // if(!hash_equals($_SESSION['token'], $_POST['token'])){
        //      die("Request forgery detected");
