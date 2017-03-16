@@ -101,10 +101,28 @@ function deleteEvent(event){
 	xmlHttp.send(dataString); // Send the data
 
 }
+function editEvent(event){
+
+	var id = document.getElementById("edit_id").value;
+	var date = document.getElementById("edit_date").value;
+	var time = document.getElementById("edit_time").value;
+	var title = document.getElementById("edit_title").value;
+
+	var dataString = "id=" +encodeURIComponent(id) + "&date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time)+ "&title=" + encodeURIComponent(title);
+	
+	var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+	xmlHttp.open("POST", "caleditevent.php", true); // Starting a POST request 
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+	xmlHttp.send(dataString);
+
+
+
+}
 document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX calls to button click 
 document.getElementById("login_btn").addEventListener("click", loginAjax, false); 
 document.getElementById("event_btn").addEventListener("click", newEventAjax, false);
 document.getElementById("getevents_btn").addEventListener("click", getEvents, false);
 document.getElementById("count_btn").addEventListener("click", getCount, false);
 document.getElementById("delete_btn").addEventListener("click", deleteEvent, false);
+document.getElementById("edit_btn").addEventListener("click", editEvent, false);
 
