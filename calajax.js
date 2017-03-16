@@ -49,7 +49,7 @@ function newEventAjax(event){
 	var date = document.getElementById("date").value;
 	var time = document.getElementById("time").value;
 	var event_title = document.getElementById("event_title").value;
-	var user = 'user1';
+	var user = "user1";
 	
 
 	var dataString = "date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time)+ "&event_title=" + encodeURIComponent(event_title)+"&user=" + encodeURIComponent(user);
@@ -58,6 +58,25 @@ function newEventAjax(event){
 	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 	xmlHttp.send(dataString);
 } 
+function getEvents(event){
+	
+	var username="user1";
+	
+
+	// Make a URL-encoded string for passing POST data:
+	var dataString = "username=" + encodeURIComponent(username);
+ 
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("POST", "calshowevents.php", true); 
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); 
+		alert(event.target.responseText);
+	}, false); // Bind the callback to the load event
+	xmlHttp.send(dataString); // Send the data
+}
 document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX calls to button click 
 document.getElementById("login_btn").addEventListener("click", loginAjax, false); 
 document.getElementById("event_btn").addEventListener("click", newEventAjax, false);
+document.getElementById("getevents_btn").addEventListener("click", getEvents, false);
+
