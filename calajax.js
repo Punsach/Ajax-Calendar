@@ -60,11 +60,11 @@ function newEventAjax(event){
 } 
 function getEvents(event){
 	
-	var username="user1";
+	//var username="user1";
 	
+	var date = document.getElementById("getevents_date").value;
 
-	// Make a URL-encoded string for passing POST data:
-	var dataString = "username=" + encodeURIComponent(username);
+	var dataString = "date=" + encodeURIComponent(date);
  
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("POST", "calshowevents.php", true); 
