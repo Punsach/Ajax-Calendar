@@ -4,9 +4,9 @@ require 'caldatabase.php';
 if(isset($_POST['id'])){                        
     //$user = htmlentities($_POST['username']);
     $id = $_POST['id'];
-    $new_time = htmlentities($_POST['time']);
-    $new_date = htmlentities($_POST['date']);
-    $new_title = htmlentities($_POST['title']);
+    $new_time = $_POST['time'];
+    $new_date = $_POST['date'];
+    $new_title = $_POST['title'];
     // $stmt = $mysqli->prepare("select date,time,title from events where id=$id");
     // if(!$stmt)
     // {

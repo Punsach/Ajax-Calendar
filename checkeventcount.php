@@ -2,8 +2,10 @@
 
 	header("Content-Type: application/json");
     require 'caldatabase.php';   
-    session_start();              
-    $user = $_SESSION['user_id'];              
+    session_start();    
+    if (isset($_SESSION['user_id'])){          
+    //$user = $_SESSION['user_id'];              
+    $user = "user1";
     $date = htmlentities($_POST['date']);
   
     $stmt = $mysqli->prepare("select COUNT(*) from events where date = '$date' and user = '$user'");
@@ -17,4 +19,5 @@
 	$stmt->fetch();
 	echo $count;    
    	$stmt->close();
+   }
 ?>

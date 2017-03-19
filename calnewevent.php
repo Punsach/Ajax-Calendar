@@ -7,9 +7,8 @@ if(isset($_POST['event_title'])){
 	$date= $_POST['date'];
 	$time = $_POST['time'];
 	session_start();
-	$user = $_SESSION['user_id'];
-	//$user = $_POST['user'];
-
+	//$user = $_SESSION['user_id'];
+	$user = "user1";
 	
 // Use a prepared statement
 	$stmt = $mysqli->prepare("insert into events (user, date,time, title ) values ('$user', '$date', '$time', '$title')");
