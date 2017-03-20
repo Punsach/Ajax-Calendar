@@ -2,6 +2,9 @@
 #displayTheEvents{display:none}
 #container{display:none}
 #modifyEvent{display:none}
+#loginToTheCalendar{display:none}
+#registerForTheCalendar{display:none}
+#shareTheEntireCalendar{display:none}
 body {
 	line-height: 1;
 	margin: 50px;
@@ -17,6 +20,11 @@ header {
 	overflow: clear;
 	position: relative;
 }
+footer {
+	overflow: clear;
+	position: relative;
+	padding-bottom: 20px;
+}
 h2 {
 	font-family: 'PT Sans Narrow', sans-serif;
 	font-size: 18px;
@@ -27,6 +35,13 @@ h2 {
 button {
 	position: absolute;
 	top: -4px;
+	
+}
+#addAnotherEvent{
+/*	height: 25px;
+	width: 40px;*/
+	top: 5px;
+	position: relative;
 }
 button:first-child {
 	left: 0;
@@ -58,6 +73,18 @@ tr.calendar:first-child td {
 	border: 0;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, .5) inset;
 }
+
+table.display {
+    border-collapse: collapse;
+}
+
+td.display {
+    border: 1px solid black;
+}
+tr.display{
+	border: 1px solid black;
+}
+
 /*h1{
 	color: #745518;
 	font-family: Belfast SF, serif;

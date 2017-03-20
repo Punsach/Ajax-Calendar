@@ -6,7 +6,11 @@ if(isset($_POST['id'])){
     $id = $_POST['id'];
     $new_time = $_POST['time'];
     $new_date = $_POST['date'];
-    $new_title = $_POST['title'];
+    $new_title = htmlentities($_POST['title']);
+    $important = 0;
+    if($_POST['important']==true){
+        $important = 1;
+    }
     // $stmt = $mysqli->prepare("select date,time,title from events where id=$id");
     // if(!$stmt)
     // {
@@ -28,7 +32,7 @@ if(isset($_POST['id'])){
        //  }
 
     //Updates the table with the new event 
-    $stmt = $mysqli->prepare("UPDATE events SET date='$new_date', time='$new_time', title = '$new_title' where id='$id'");
+    $stmt = $mysqli->prepare("UPDATE events SET date='$new_date', time='$new_time', title = '$new_title', important='$important' where id='$id'");
     if(!$stmt){
         printf("Query Prep Failed: %s\n", $mysqli->error);
         exit;

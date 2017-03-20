@@ -29,7 +29,8 @@ if(isset($_POST['username'])){
                 
                 echo json_encode(array(
                     "success" => true,
-                    "message" =>"Welcome, $user."
+                    "message" =>"Welcome, $user.",
+                    "token" => $_SESSION['token']
                 ));
                 exit;
             }else{

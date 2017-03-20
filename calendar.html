@@ -7,6 +7,7 @@
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'>
 	<link href="dialog" rel="stylesheet"> <!-- Including CSS File Here-->
+	<link href="form.css" rel="stylesheet">
 	<!-- Including CSS & jQuery Dialog UI Here-->
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -22,60 +23,136 @@
 		<table id = "calendar-table">
 
 		</table>
-	</div>
-</body>
+		<footer id = "calendar-footer"></footer>
+		<footer id = "filter-footer"></footer>
+		</div>
+	</body>
 
-<div class="container" id ="container">
-	<div class="main">
-		<div id="addStuff" title="Add Event">
-			<form id="addform" method="post">
-				<label>Event Title:</label>
-				<input id="eventTitle" name="eventTitle" type="text">
-				<label>Time:</label>
-				<input type="time" id="eventTime" placeholder="HH:MI">
-				<input id="eventSubmit" type="submit" value="Submit">
+	<div class="container" id ="container">
+		<div class="main">
+			<div id="addStuff" title="Add Event">
+				<form id="addform" method="post">
+					<label>Event Title:</label>
+					<input id="eventTitle" name="eventTitle" type="text">
+					<label>Time:</label>
+					<input type="time" id="eventTime" placeholder="HH:MI"><br>
+					<label>Mark as Important:</label>
+					<input id = "addImportant" type="checkbox" name="addImportant"><br>
+					<input id="eventSubmit" type="submit" value="Submit">
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class = "loginToCalendar" id = "loginToTheCalendar">
+		<form action="" method="post" class="basic-gray">
+			<h1>Login
+			</h1>
+			<label>
+				<span>Username:</span>
+				<input id="username" type="text" placeholder="Username" />
+			</label>
+
+			<label>
+				<span>Password :</span>
+				<input id="password" type="password" placeholder="Password" />
+			</label>
+			<p>   
+				<label> 
+					<input type="button" class="button" value="Login" id = "login_btn" /> 
+				</label>   
+			</p> 
+		</form>
+	</div> 
+
+	<div class = "registerForCalendar" id = "registerForTheCalendar">
+		<form action="" method="post" class="basic-gray">
+			<h1>Register
+			</h1>
+			<label>
+				<span>Username:</span>
+				<input id="registerUsername" type="text" placeholder="Username" />
+			</label>
+
+			<label>
+				<span>Password :</span>
+				<input id="registerPassword" type="password" placeholder="Password" />
+			</label>
+			<p>   
+				<label>
+					<input type="button" class="button" value="Register" id = "register_btn" /> 
+				</label>   
+			</p> 
+		</form>
+	</div> 
+
+	<div class = "shareTheCalendar" id = "shareTheEntireCalendar">
+		<form action="" method="post" class="basic-gray">
+			<h1>Share Calendar
+			</h1>
+			<label>
+				<span>Username:</span>
+				<input id="shareUsername" type="text" placeholder="Username" />
+			</label>
+			<p>   
+				<label>
+					<input type="button" class="button" value="Share Calendar" id = "share_calendar_btn" /> 
+				</label>   
+			</p> 
+		</form>
+	</div> 
+
+	<div class = "basic-gray" id = "displayTheEvents">
+	<h1>Events
+			</h1>
+			<table id = "displayEvents" title = "Events">
+			</table>
+			<input id = "addAnotherEvent" value = "Add Event" type ="button" class = "button"/>
+		</div>
+
+	<div class = "basic-gray" id = "modifyEvent">
+			<form id = "editForm", method = "post">
+				<label>New Event Title:</label>
+				<input id="newEventTitle" name="newEventTitle" type="text">
+				<label>New Event Date:</label>
+				<input id ="newEventDate", type = "date", name = "newEventDate"><br>
+				<label>New Time:</label>
+				<input type="time" id="newEventTime" placeholder="HH:MI" name ="newEventTime"><br>
+				<label>Mark as Important:</label>
+				<input id = "important" type="checkbox" name="important"><br>
+				<input id="newEventSubmit" type="button", value="Edit Event">
+				<br>
+				<input id = "deleteEvent", type ="button", value = "Delete Event">
+				<br>
+				<label>Share Event:</label>
+				<input id = "shareEventWithUser", type = "text">
+				<input id = "shareEventButton", type = "button", value = "Share Event">
+
 			</form>
 		</div>
 	</div>
-</div>
+<!-- 	<script type ="text/javascript">
+	logout();
+	</script> -->
 
- <div class = "displayEvents" id = "displayTheEvents">
-	<div class="main" id = "listTheEvents">
-		<table id = "displayEvents" title = "Events">
-		</table>
-	</div>
-</div> 
+	<script type="text/javascript">
+		var loggedIn = true;
+		
+		document.addEventListener("DOMContentLoaded", updateCalendar, false); 
+		var originalDOM = document.body.innerHTML;
+		var originalDisplay = document.getElementById("displayEvents").innerHTML;
 
-<div class = "modifyEvent" id = "modifyEvent">
-	<div class = "main">
-		<form id = "editForm", method = "post">
-			<label>New Event Title:</label>
-			<input id="newEventTitle" name="newEventTitle" type="text">
-			<label>New Event Date:</label>
-			<input id ="newEventDate", type = "date", name = "newEventDate">
-			<label>New Time:</label>
-			<input type="time" id="newEventTime" placeholder="HH:MI" name ="newEventTime">
-			<input id="newEventSubmit" type="submit", value="Edit Event">
-			<br>
-			<input id = "deleteEvent", type ="submit", value = "Delete Event">
-		</form>
-	</div>
-</div>
 
-<script type="text/javascript">
- $(document).ready(function() {
-$("#displayEvents").hide();
-});
-	document.addEventListener("DOMContentLoaded", updateCalendar, false); 
-	var originalDOM = document.body.innerHTML;
-	var originalDisplay = document.getElementById("displayEvents").innerHTML;
-// For our purposes, we can keep the current month in a variable in the global scope
-var currentMonth = new Month(2017, 2); // 
-var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		
+		var filter = 0;
+
+		var currentMonth = new Month(2017,2); // 
+		months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function updateCalendar(){
 	document.body.innerHTML = originalDOM;
+
 	var prevButton = document.createElement("button");
 	prevButton.setAttribute("id", "prev_month_btn");
 	prevButton.appendChild(document.createTextNode("«"));
@@ -89,6 +166,81 @@ function updateCalendar(){
 	nextButton.setAttribute("id", "next_month_btn");
 	nextButton.appendChild(document.createTextNode("»"));
 	document.getElementById("calendar-header").appendChild(nextButton);
+
+	if(loggedIn){
+		var logoutButton = document.createElement("button");
+		logoutButton.setAttribute("id", "logout_button");
+		logoutButton.appendChild(document.createTextNode("Logout"));
+		document.getElementById("calendar-footer").appendChild(document.createElement("p"));
+		document.getElementById("calendar-footer").appendChild(logoutButton);
+		document.getElementById("calendar-footer").appendChild(document.createElement("p"));
+
+		$("#logout_button").on("click", function(){
+			logout();
+		});
+
+		var filterButton = document.createElement("button");
+		filterButton.setAttribute("id", "filterButton");
+		filterButton.appendChild(document.createTextNode("Filter Important Events"));
+		document.getElementById("filter-footer").appendChild(document.createElement("p"));
+		document.getElementById("filter-footer").appendChild(filterButton);
+
+	
+		$("#filterButton").on("click", function(){
+			if(filter === 0){
+				filter = 1
+			}
+			else
+			{
+				filter = 0;
+			}
+			updateCalendar();
+		});
+
+		var shareButton = document.createElement("button");
+		shareButton.setAttribute("id", "share_calendar_button");
+		shareButton.appendChild(document.createTextNode("Share Entire Calendar"));
+		document.getElementById("calendar-footer").appendChild(document.createElement("p"));
+		document.getElementById("calendar-footer").appendChild(shareButton);
+
+		$("#shareTheEntireCalendar").dialog({
+			autoOpen: false
+		});
+
+		$("#share_calendar_button").on("click", function(){
+			shareCalendar();
+		});
+	}
+
+	if(loggedIn === false){
+		var loginButton = document.createElement("button");
+		loginButton.setAttribute("id", "login_button");
+		loginButton.appendChild(document.createTextNode("Login"));
+		document.getElementById("calendar-footer").appendChild(document.createElement("p"));
+		document.getElementById("calendar-footer").appendChild(loginButton);
+
+		$("#loginToTheCalendar").dialog({
+		autoOpen: false
+		});
+
+		$("#login_button").on("click", function(){
+			login();
+		});
+
+		var registerButton = document.createElement("button");
+		registerButton.setAttribute("id", "register_button");
+		registerButton.appendChild(document.createTextNode("Register"));
+		document.getElementById("calendar-footer").appendChild(document.createElement("p"));
+		document.getElementById("calendar-footer").appendChild(registerButton);
+
+		$("#registerForTheCalendar").dialog({
+		autoOpen: false
+		});
+
+		$("#register_button").on("click", function(){
+			register();
+		});
+	}
 
 	var newRow = document.createElement("tr");
 	newRow.setAttribute("class", "calendar");
@@ -113,28 +265,6 @@ function updateCalendar(){
 	// 	});
 	// });
 	//Begin citation: https://www.formget.com/jquery-dialog-form/
-	$(document).ready(function() {
-	$(function() {
-			$("#calendar-table").on("click", function(event) {
-				$.ajax({
-					url: "checkeventcount.php",
-					type: "POST",
-					data: {date : event.target.id},
-					success: function(data){
-						if(data === 0)
-						{
-							addEvent(event.target.id);
-						}
-						else{
-							listEvents(event.target.id);
-						}
-					}
-				});
-				
-				
-			});
-		});
-	});
 
 	// End citation 
 
@@ -152,15 +282,15 @@ function updateCalendar(){
 			newCell.setAttribute("class", "calendar");
 			newCell.appendChild(document.createTextNode(String(days[d].getDate())));
 			(function(fullDate)
-			{$.ajax({
-				url: "checkeventcount.php",
-				type: "POST",
-				data: {date : fullDate},
-				success: function(data){
-					generateDay(fullDate, data);
-				}
-			});
-		})(fullDate);
+				{$.ajax({
+					url: "checkeventcount.php",
+					type: "POST",
+					data: {date : fullDate, important: filter},
+					success: function(data){
+						generateDay(fullDate, data);
+					}
+				});
+			})(fullDate);
 			newRow.appendChild(newCell);
 		}
 		document.getElementById("calendar-table").appendChild(newRow);
@@ -168,13 +298,59 @@ function updateCalendar(){
 	document.getElementById("next_month_btn").addEventListener("click", nextMonth, false);
 	document.getElementById("prev_month_btn").addEventListener("click", prevMonth, false);
 
+	$(document).ready(function() {
+		$(function() {
+			$("#calendar-table").on("click", function(event) {
+				$.ajax({
+					url: "checkeventcount.php",
+					type: "POST",
+					data: {date : event.target.id, important: filter},
+					success: function(data){
+						if(data === 0)
+						{
+							addEvent(event.target.id, currentMonth);
+						}
+						else{
+							listEvents(event.target.id);
+						}
+					}
+				});
+			});
+		});
+	});
+
+}
+
+function shareCalendar(){
+	$("#shareTheEntireCalendar").dialog("open");
+	$("#share_calendar_btn").on("click", function(){
+		$.ajax({
+			url: "calshareall.php",
+			type: "POST",
+			data : {user: document.getElementById("shareUsername").value},
+			success: function(){
+				console.log("shared successfully");
+			}
+		});
+	});
+}
+
+function logout(){
+	console.log("logout");
+	$.ajax({
+		url: "callogout.php",
+		success: function(){
+			loggedIn = false; 
+			updateCalendar();
+		}
+	});
 }
 
 function generateDay(fullDate, count){
 	var newCell = document.getElementById(fullDate);
 	if(count > 0)
 	{	
-		var numEvents = count + " Events";
+		var numEvents = count + " Event(s)";
 		newCell.appendChild(document.createElement("br"));
 		newCell.appendChild(document.createTextNode(numEvents));
 	}
@@ -192,16 +368,55 @@ function getCount(fullDate){
 	//$.post("checkeventcount.php", {date : fullDate}, function(){});
 }
 
+function login(){
+	$("#registerForTheCalendar").dialog("close");
+	$("#loginToTheCalendar").dialog("open");
+	$("#login_btn").on("click", function(){
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value; 
+		$.ajax({
+			url : "callogin.php",
+			type : "POST",
+			dataType: "json",
+			data: {username : username, password: password},
+			success: function(results){
+				if(results.success){
+					loggedIn = true;
+					token = results.token;
+					updateCalendar();
+				}
+			}
+		});
+	});
+}
+
+function register(){
+	$("#loginToTheCalendar").dialog("close");
+	$("#registerForTheCalendar").dialog("open");
+	$("#register_btn").on("click", function(){
+		var username = document.getElementById("registerUsername").value;
+		var password = document.getElementById("registerPassword").value; 
+		$.ajax({
+			url : "calnewaccount.php",
+			type : "POST",
+			data: {new_username : username, new_password: password},
+			success: function(results){
+				alert("successful");
+			}
+		});
+	});
+}
+
 function listEvents(fullDate){
 	document.getElementById("displayEvents").innerHTML = originalDisplay;
-	$("#displayEvents").dialog({
+	$("#displayTheEvents").dialog({
 		autoOpen: false
 	});
 	$.ajax({
 		url: "calshowevents.php",
 		type: "POST",
 		dataType: "json",
-		data: {date : fullDate},
+		data: {date : fullDate, important: filter},
 		success: function(results){
 			$.each(results, function(index, element) {
 				var id = element.id; 
@@ -209,47 +424,70 @@ function listEvents(fullDate){
 				var title = element.title 
 				var newEvent = document.createElement("tr");
 				var newCell = document.createElement("td");
+				newEvent.setAttribute("class", "display");
+				newCell.setAttribute("class", "display");
+
 				newCell.setAttribute("id", id);
 				newCell.appendChild(document.createTextNode(time + ": " + title));
 				newEvent.appendChild(newCell);
 				document.getElementById("displayEvents").appendChild(newEvent);
 			});
-			var newButton = document.createElement("BUTTON");
-			newButton.setAttribute("id", "addAnotherEvent");
-			newButton.setAttribute("value", "Add Event");
-			document.getElementById("displayEvents").appendChild(newButton);
-			$("#displayEvents").dialog("open");
-			$("#addAnotherEvent").click(function() {
-				$("#displayEvents").dialog("close");
-				addEvent(fullDate);
-			});
-			$("#displayEvents").on("click", function(event){
-				var eventID = event.target.id;
-				$("#modifyEvent").dialog({
-					autoOpen: false
-				});
-				$("#modifyEvent").dialog("open");
-				$("#newEventSubmit").on("click", function(){
-					alert(document.getElementById("newEventDate").value);
-					editEvent(document.getElementById("newEventDate").value, document.getElementById("newEventTime").value, document.getElementById("newEventTitle").value, eventID);
-				});
-				$("#deleteEvent").on("click", function(){
-					deleteEvent(eventID);
-				});
-			});
+			
+			 // var newButton = document.createElement("button");
+			 // newButton.setAttribute("id", "addAnotherEvent");
+			 // newButton.setAttribute("value", "Add Event");
+			 // newButton.appendChild(document.createTextNode("Add Event"));
+			 // document.getElementById("displayEvents").appendChild(newButton);
+			 $("#displayTheEvents").dialog("open");
+			 var edit = false;
+			 // $("#addAnotherEvent").click(function() {
+			 // 	$("#displayEvents").dialog("close");
+			 // 	addEvent(fullDate);
+			 // 	edit = true;
+			 // });
+			 $("#displayEvents").on("click", function(event){
+			 	if(edit==false){
+			 		var eventID = event.target.id;
+			 		$("#modifyEvent").dialog({
+			 			autoOpen: false
+			 		});
+			 		$("#modifyEvent").dialog("open");
+			 		$("#newEventSubmit").on("click", function(){
+			 			editEvent(document.getElementById("newEventDate").value, document.getElementById("newEventTime").value, document.getElementById("newEventTitle").value, eventID, document.getElementById("important").value);
+			 		});
+			 		$("#deleteEvent").on("click", function(){
+			 			deleteEvent(eventID);
+			 		});
+			 		$("#shareEventButton").on("click", function(){
+			 			shareEvent(document.getElementById("shareEventWithUser").value, eventID);
+			 		});
+			 	}
+			 });
+			}
+		});
+}
+
+function shareEvent(user, eventID){
+	$.ajax({
+		url: "calshare.php",
+		type: "POST",
+		data: {id: eventID, user: user},
+		success: function(){
+			$("#displayEvents").dialog("close");
+			updateCalendar();
 		}
 	});
 }
 
-function editEvent(newDate, newTime, newTitle, eventID){
+function editEvent(newDate, newTime, newTitle, eventID, important){
 	$.ajax({
-				url: "caleditevent.php",
-				type: "POST",
-				data: {new_date : newDate, new_time: newTime, new_title: newTitle, id: eventID},
-				success: function(data){
-					updateCalendar();
-				}
-		});
+		url: "caleditevent.php",
+		type: "POST",
+		data: {date : newDate, time: newTime, title: newTitle, id: eventID, important: important},
+		error: function(){
+			updateCalendar();
+		}
+	});
 	// $.post("caleditevent.php", {new_date : newDate, new_time: newTime, new_title: newTitle, id: eventID}, function(status){
 	// 	console.log(status);
 	// });
@@ -258,13 +496,13 @@ function editEvent(newDate, newTime, newTitle, eventID){
 
 function deleteEvent(eventID){
 	$.ajax({
-				url: "caldeleteevent.php",
-				type: "POST",
-				data: {id : eventID},
-				success: function(data){
-					updateCalendar();
-				}
-		});
+		url: "caldeleteevent.php",
+		type: "POST",
+		data: {id : eventID},
+		error: function(){
+			updateCalendar();
+		}
+	});
 
 	// $.post("caldeleteevent.php", {id : eventID}, function(status){
 	// 	console.log(status);
@@ -272,13 +510,14 @@ function deleteEvent(eventID){
 	// updateCalendar();
 }
 
-function addEvent(fullDate){
-	$("#container").dialog({
-				autoOpen: false
-			});
+function addEvent(fullDate, currentMonth){
+	console.log(currentMonth);
+	// $("#container").dialog({
+	// 	autoOpen: false
+	// });
 	$("#addStuff").dialog({
-				autoOpen: false
-			});
+		autoOpen: false
+	});
 	$("#addStuff").dialog("open");
 	// $( "#addStuff" ).bind('clickoutside',function(){
 	// 	$( "#addStuff" ).dialog('close');
@@ -287,16 +526,16 @@ function addEvent(fullDate){
 		var time = $("#eventTime").val();
 		var title = $("#eventTitle").val();
 		console.log(title);
+		console.log(time);
+		console.log(fullDate);
 		$.ajax({
-				url: "checkeventcount.php",
-				type: "POST",
-				data: {date : fullDate},
-				success: function(data){
-					generateDay(fullDate, data);
-				}
-		});
-		$.post("calnewevent.php", {date: fullDate, time: time, event_title: title}, function(status){
-			updateCalendar;
+			url: "calnewevent.php",
+			type: "POST",
+			data: {date: fullDate, time: time, event_title: title, important: document.getElementById("addImportant").value},
+			error: function(){
+				currentMonth = currentMonth;
+				updateCalendar();
+			}
 		});
 	});
 }
@@ -310,6 +549,5 @@ function nextMonth(){
 	currentMonth = currentMonth.nextMonth();
 	updateCalendar();
 }
-
 
 </script>
