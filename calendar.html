@@ -142,7 +142,7 @@
 		var originalDOM = document.body.innerHTML;
 		var originalDisplay = document.getElementById("displayEvents").innerHTML;
 
-
+		var token = "";
 		
 		var filter = 0;
 
@@ -285,7 +285,7 @@ function updateCalendar(){
 				{$.ajax({
 					url: "checkeventcount.php",
 					type: "POST",
-					data: {date : fullDate, important: filter},
+					data: {date : fullDate, important: filter, token: token},
 					success: function(data){
 						generateDay(fullDate, data);
 					}
@@ -304,7 +304,7 @@ function updateCalendar(){
 				$.ajax({
 					url: "checkeventcount.php",
 					type: "POST",
-					data: {date : event.target.id, important: filter},
+					data: {date : event.target.id, important: filter, token: token},
 					success: function(data){
 						if(data === 0)
 						{
@@ -327,7 +327,7 @@ function shareCalendar(){
 		$.ajax({
 			url: "calshareall.php",
 			type: "POST",
-			data : {user: document.getElementById("shareUsername").value},
+			data : {user: document.getElementById("shareUsername").value, token: token},
 			success: function(){
 				console.log("shared successfully");
 			}
@@ -360,7 +360,7 @@ function getCount(fullDate){
 	$.ajax({
 		url: "checkeventcount.php",
 		type: "POST",
-		data: {date : fullDate},
+		data: {date : fullDate, token: token},
 		success: function(data){
 			return data; 
 		}
@@ -378,7 +378,7 @@ function login(){
 			url : "callogin.php",
 			type : "POST",
 			dataType: "json",
-			data: {username : username, password: password},
+			data: {username : username, password: password, token: token},
 			success: function(results){
 				if(results.success){
 					loggedIn = true;
@@ -399,7 +399,7 @@ function register(){
 		$.ajax({
 			url : "calnewaccount.php",
 			type : "POST",
-			data: {new_username : username, new_password: password},
+			data: {new_username : username, new_password: password, token: token},
 			success: function(results){
 				alert("successful");
 			}
@@ -416,7 +416,7 @@ function listEvents(fullDate){
 		url: "calshowevents.php",
 		type: "POST",
 		dataType: "json",
-		data: {date : fullDate, important: filter},
+		data: {date : fullDate, important: filter, token:token},
 		success: function(results){
 			$.each(results, function(index, element) {
 				var id = element.id; 
@@ -440,11 +440,9 @@ function listEvents(fullDate){
 			 // document.getElementById("displayEvents").appendChild(newButton);
 			 $("#displayTheEvents").dialog("open");
 			 var edit = false;
-			 // $("#addAnotherEvent").click(function() {
-			 // 	$("#displayEvents").dialog("close");
-			 // 	addEvent(fullDate);
-			 // 	edit = true;
-			 // });
+			 $("#addAnotherEvent").click(function() {
+			 	addEvent(fullDate);
+			 });
 			 $("#displayEvents").on("click", function(event){
 			 	if(edit==false){
 			 		var eventID = event.target.id;
@@ -471,7 +469,7 @@ function shareEvent(user, eventID){
 	$.ajax({
 		url: "calshare.php",
 		type: "POST",
-		data: {id: eventID, user: user},
+		data: {id: eventID, user: user, token: token},
 		success: function(){
 			$("#displayEvents").dialog("close");
 			updateCalendar();
@@ -483,7 +481,7 @@ function editEvent(newDate, newTime, newTitle, eventID, important){
 	$.ajax({
 		url: "caleditevent.php",
 		type: "POST",
-		data: {date : newDate, time: newTime, title: newTitle, id: eventID, important: important},
+		data: {date : newDate, time: newTime, title: newTitle, id: eventID, important: important, token: token},
 		error: function(){
 			updateCalendar();
 		}
@@ -531,7 +529,7 @@ function addEvent(fullDate, currentMonth){
 		$.ajax({
 			url: "calnewevent.php",
 			type: "POST",
-			data: {date: fullDate, time: time, event_title: title, important: document.getElementById("addImportant").value},
+			data: {date: fullDate, time: time, event_title: title, important: document.getElementById("addImportant").value, token: token},
 			error: function(){
 				currentMonth = currentMonth;
 				updateCalendar();

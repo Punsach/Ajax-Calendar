@@ -24,13 +24,14 @@ if(isset($_POST['username'])){
             ini_set("session.cookie_httponly", 1);       
             session_start();
             $_SESSION['user_id'] = $user;
-            $_SESSION['token'] = substr(md5(rand()), 0, 10);
+            $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32));
+            $token = $_SESSION['token'];
                
                 
                 echo json_encode(array(
                     "success" => true,
                     "message" =>"Welcome, $user.",
-                    "token" => $_SESSION['token']
+                    "token" => $token
                 ));
                 exit;
             }else{

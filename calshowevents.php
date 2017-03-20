@@ -11,7 +11,7 @@
     $user = $_SESSION['user_id'];
     $date = $_POST['date'];
     
-
+ 
     ////Checks whether filtering by important tag
     $important = $_POST['important'];
     if($important!=0){
